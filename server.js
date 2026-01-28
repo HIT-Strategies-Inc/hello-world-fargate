@@ -44,14 +44,12 @@ app.get('/health', (req, res) => {
   }
 });
 
-// Only start listening if not in test environment
-if (require.main === module) {
-  app.listen(PORT, '0.0.0.0', (err) => {
-    if (err) {
-      console.error('Failed to start server:', err);
-      process.exit(1);
-    }
-    console.log(`Hello World app listening on port ${PORT}`);
-    console.log(`Health endpoint available at: http://localhost:${PORT}/health`);
-  });
-}
+// Start the server
+app.listen(PORT, '0.0.0.0', (err) => {
+  if (err) {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  }
+  console.log(`Hello World app listening on port ${PORT}`);
+  console.log(`Health endpoint available at: http://localhost:${PORT}/health`);
+});
