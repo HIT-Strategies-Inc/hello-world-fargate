@@ -1,5 +1,5 @@
-# Use official Node.js runtime as a parent image
-FROM node:18-alpine
+# Use official Node.js runtime (slim variant for ARM64 compatibility)
+FROM node:18-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -14,8 +14,7 @@ RUN npm install --production
 COPY . .
 
 # Create a non-root user for security
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nodejs -u 1001
+RUN groupadd -r -g 1001 nodejs && useradd -r -g nodejs -u 1001 nodejs
 
 # Change ownership of the app directory to the nodejs user
 RUN chown -R nodejs:nodejs /app
